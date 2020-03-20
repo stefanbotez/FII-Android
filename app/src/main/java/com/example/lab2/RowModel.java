@@ -2,6 +2,7 @@ package com.example.lab2;
 
 public class RowModel {
 
+
     private String title;
     private String description;
     private int image;

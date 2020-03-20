@@ -4,10 +4,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -20,12 +22,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lab2.Database.DatabaseHelper;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TITLE_EXTRA = "com.example.lab2.TITLE";
     public static final String DESCRIPTION_EXTRA = "com.example.lab2.DESCRIPTION";
-    final String TEXTVIEWKEY = "TEXTVIEWKEY";
+    static final String TEXTVIEWKEY = "TEXTVIEWKEY";
+
+
+    DatabaseHelper db;
     ListView listView;
     TextView textView;
     int lastClicked = -1;
@@ -35,19 +42,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
         Intent intent = getIntent();
         String itemTitle = intent.getStringExtra(TITLE_EXTRA);
         String itemDescription = intent.getStringExtra(DESCRIPTION_EXTRA);
+        db = new DatabaseHelper(this);
 
         listView = (ListView)findViewById(R.id.listView);
         textView = (TextView)findViewById(R.id.textView);
 
         final ArrayList<RowModel> myList = new ArrayList<>();
-        myList.add(new RowModel("Chrome" , "https://www.google.com/chrome", R.drawable.chrome));
-        myList.add(new RowModel("Safari" , "https://www.apple.com/safari/", R.drawable.safari));
-        myList.add(new RowModel("Firefox" , "https://www.mozilla.org/en-US/", R.drawable.firefox));
-        if(itemTitle != null && itemDescription != null)
-            myList.add(new RowModel(itemTitle , itemDescription, R.drawable.not_found));
+        Cursor data = db.getData();
+
+        if(itemTitle != null && itemDescription != null) {
+            db.addData(itemTitle, itemDescription, R.drawable.not_found);
+        }
+        while(data.moveToNext()){
+            myList.add(new RowModel(data.getString(1), data.getString(2), data.getInt(3)));
+        }
 
 
         listView.setAdapter(new CustomAdapter(this, myList));
@@ -67,42 +80,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        //Toast.makeText(getApplicationContext(), "onCreate", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //Toast.makeText(getApplicationContext(), "onStart", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //Toast.makeText(getApplicationContext(), "onResume", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //Toast.makeText(getApplicationContext(), "onPause", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        //Toast.makeText(getApplicationContext(), "onStop", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //Toast.makeText(getApplicationContext(), "onDestroy", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         //Toast.makeText(getApplicationContext(), "onResoreInstanceState", Toast.LENGTH_SHORT).show();
         lastClicked = savedInstanceState.getInt(TEXTVIEWKEY);
@@ -113,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Toast.makeText(getApplicationContext(), "onSaveInstanceState" + lastClicked, Toast.LENGTH_SHORT).show();
         outState.putInt(TEXTVIEWKEY, lastClicked);
     }
 
@@ -129,7 +105,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.AddItem:
                 AddItem();
                 return true;
-            case R.id.option2:
+            case R.id.Settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.Close:
                 Close();
