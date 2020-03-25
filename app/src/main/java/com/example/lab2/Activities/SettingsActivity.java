@@ -1,12 +1,12 @@
-package com.example.lab2;
+package com.example.lab2.Activities;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+
+import com.example.lab2.Fragments.SettingsFragment;
 
 public class SettingsActivity extends AppCompatActivity {
     public static final String KEY_PREF_SWITCH = "switch_preference_1";

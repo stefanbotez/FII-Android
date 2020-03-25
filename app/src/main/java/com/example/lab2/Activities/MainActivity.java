@@ -1,28 +1,25 @@
-package com.example.lab2;
+package com.example.lab2.Activities;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lab2.Adapters.CustomAdapter;
 import com.example.lab2.Database.DatabaseHelper;
+import com.example.lab2.R;
+import com.example.lab2.Models.RowModel;
 
 import java.util.ArrayList;
 
@@ -104,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.AddItem:
                 AddItem();
+                return true;
+            case R.id.Sensors:
+                startActivity(new Intent(this, SensorsActivity.class));
                 return true;
             case R.id.Settings:
                 Intent intent = new Intent(this, SettingsActivity.class);

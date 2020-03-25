@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="355dp"
+        android:layout_height="584dp"
+        android:layout_marginTop="34dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.714"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.017">
+
+        <LinearLayout
+            android:id="@+id/AccelerometerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="143dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textAccelerometer"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="ACCELEROMETER"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+
+            <TextView
+                android:id="@+id/textX"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:text="X" />
+
+            <TextView
+                android:id="@+id/textY"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:text="Y" />
+
+            <TextView
+                android:id="@+id/textZ"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:text="Z" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LocationLayout"
+            android:layout_width="380dp"
+            android:layout_height="96dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textLocation"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="LOCATION"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+
+            <TextView
+                android:id="@+id/textLat"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:text="LAT" />
+
+            <TextView
+                android:id="@+id/textLong"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:text="LONG" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
