@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
@@ -101,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.AddItem:
                 AddItem();
+                return true;
+            case R.id.Camera:
+                startActivity(new Intent(this, PhotoActivity.class));
                 return true;
             case R.id.Sensors:
                 startActivity(new Intent(this, SensorsActivity.class));

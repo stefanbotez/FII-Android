@@ -4,6 +4,9 @@
         android:id="@+id/AddItem"
         android:title="AddItem" />
     <item
+        android:id="@+id/Camera"
+        android:title="Camera" />
+    <item
         android:id="@+id/Sensors"
         android:title="Sensors" />
     <item
